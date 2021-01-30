@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { products } from '../products';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-product-details',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
-
-  constructor() { }
+product;
+  constructor(
+     private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+      const routeParams = this.route.snapshot.paramMap;
+      const productIdFromRoute =  Number(routeParams.get('productId'));
+
+      this.product = products.find(product => product.id === productIdFromRoute);
   }
 
 }
